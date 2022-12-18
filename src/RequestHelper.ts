@@ -1,13 +1,6 @@
 import { type } from "os"
 
 class RequestHelper {
-    static isValidBody(bodyString: string): boolean {
-        if ( typeof bodyString === 'object') {
-            return true
-        } else {
-            return false
-        }
-    }
 
     static isUndefined(reqBody: any): boolean {
         if (reqBody === undefined) {
@@ -16,6 +9,15 @@ class RequestHelper {
             return false
         }
     }
+
+    static hasKeys(keys: any, obj: any) {
+        for (let key of keys) {
+          if (!obj.hasOwnProperty(key)) {
+            return false;
+          }
+        }
+        return true;
+      }
 }
 
 export default RequestHelper
