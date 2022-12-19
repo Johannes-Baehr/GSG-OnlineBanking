@@ -1,14 +1,15 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import bcrypt from 'bcrypt'
 import StatusCodes from './StatusCodes.js'
-import { send } from 'process';
+import TransactionLog from './TransactionLog.js';
 
 const saltRounds = 8
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: './database.sqlite'
+  storage: './account.sqlite'
 });
+
 
 class User extends Model {
   public uuid!: string;
@@ -39,6 +40,8 @@ User.init({
   createdAt: true
 })
 
+
+
 // create the table in the database
 sequelize.sync({ force: false })
 
@@ -49,7 +52,7 @@ class AccountHandler {
       bcrypt.hash(pin, saltRounds, async (err, hash) => {
         if (err === undefined) {
           try {
-            await User.create({ uuid: uuid, pin: hash })
+            await User.create({ uuid, pin: hash })
             resolve(StatusCodes.success.created)
           } catch (e: any) {
             if (e.name === 'SequelizeUniqueConstraintError') { resolve(StatusCodes.error.conflict) }
@@ -67,7 +70,7 @@ class AccountHandler {
       if (await this.authenticate(fromUUID, fromPIN) === StatusCodes.error.authFail) {
         resolve(StatusCodes.error.authFail);
       }
-    
+
       amount = Math.floor(amount * 100) / 100;
       if (fromUUID === toUUID) {
         resolve(StatusCodes.error.sameUUID);
@@ -77,7 +80,7 @@ class AccountHandler {
       }
       // auth user
       try {
-        const result = await sequelize.transaction(async (t) => {
+        await sequelize.transaction(async (t) => {
           const sender = await User.findOne({
             where: { uuid: fromUUID },
             attributes: ["balance"],
@@ -86,14 +89,14 @@ class AccountHandler {
             where: { uuid: toUUID },
             attributes: ["balance"],
           });
-    
+
           if (reciever === null || sender === null) {
             throw Error(StatusCodes.error.invalidUUID.toString());
           }
           if (sender.dataValues.balance < amount) {
             throw Error(StatusCodes.error.balance.toString());
           }
-    
+
           await User.update(
             { balance: sender.dataValues.balance - amount },
             { where: { uuid: fromUUID } }
@@ -102,10 +105,9 @@ class AccountHandler {
             { balance: reciever.dataValues.balance + amount },
             { where: { uuid: toUUID } }
           );
-    
-          return StatusCodes.success.success;
+          TransactionLog.transactionLog(fromUUID, toUUID, amount)
         });
-        resolve(result);
+        resolve(StatusCodes.success.success);
       } catch (e: any) {
         resolve(e.message);
       }

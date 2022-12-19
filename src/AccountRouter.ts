@@ -27,4 +27,10 @@ router.post('/transaction', async (req, res) => {
     res.status((await AccountHandler.newTransaction(req.body.fromUUID, req.body.toUUID, req.body.fromPIN, req.body.amount))).send()
 })
 
+router.post('/login', async (req, res) => {
+    if(!RequestHelper.hasKeys(['uuid', 'pin'], req.body)) { res.status(StatusCodes.error.authFail )}
+    // authenticate user
+    
+})
+
 export default router

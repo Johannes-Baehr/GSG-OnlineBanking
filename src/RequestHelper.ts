@@ -11,7 +11,7 @@ class RequestHelper {
     }
 
     static hasKeys(keys: any, obj: any) {
-        for (let key of keys) {
+        for (const key of keys) {
           if (!obj.hasOwnProperty(key)) {
             return false;
           }

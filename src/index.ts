@@ -11,15 +11,6 @@ const port: number = 8080
 app.use(bodyParser.json())
 app.use('/account', account)
 
-
-app.get("/test", (req: Request, res: Response) => {
-    if (!RequestHelper.isUndefined(req.body?.uuid) && (/^[A-Za-z0-9]{3,16}$/.test(req.body?.uuid))) { // TODO: check if its really json
-        res.status(StatusCodes.success.success).send("yeah")
-    } else {
-        res.send('not valid')
-    }
-})
-
 app.use(express.static("dist/static")) // TODO: weird things happening and i dont have any idea whats going on with that path
 
 app.listen(port, () => {
