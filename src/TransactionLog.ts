@@ -1,5 +1,5 @@
 import { STATUS_CODES } from "http";
-import { Sequelize, Model, DataType, DataTypes } from "sequelize";
+import { Sequelize, Model, DataType, DataTypes, Op } from "sequelize";
 import StatusCodes from './StatusCodes.js'
 
 
@@ -56,6 +56,36 @@ class TransactionLog {
         })
 
     }
+    static async getTransactions(uuid: string) {
+        return new Promise(async (resolve, reject) => {
+            const transactions = await TransactionDB.findAll({
+                attributes: ['fromUUID', 'amount', 'createdAt'],
+                where: {
+                    [Op.or]: [
+                        { fromUUID: uuid },
+                        { toUUID: uuid }
+                    ]
+                }
+            });
+            resolve(transactions);
+        });
+    }
+
+    static processTransactions(transactions: any, uuid: string, startValue = 500) {
+        let nextValue = startValue;
+        for (const transaction of transactions) {
+            if (transaction.fromUUID === uuid) {
+                nextValue -= transaction.amount;
+            } else {
+                nextValue += transaction.amount;
+            }
+            transaction.amount = nextValue;
+            delete transaction.dataValues.fromUUID
+
+        }
+        return transactions;
+    }
+
 }
 
 export default TransactionLog

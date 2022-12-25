@@ -2,6 +2,7 @@ import { Sequelize, DataTypes, Model } from 'sequelize';
 import bcrypt from 'bcrypt'
 import StatusCodes from './StatusCodes.js'
 import TransactionLog from './TransactionLog.js';
+import { rejects } from 'assert';
 
 const saltRounds = 8
 
