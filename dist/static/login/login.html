@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="./custom-styles.css">
+    <script defer src="./html5-qrcode.min.js"></script>
+    <script defer src="./qr-reader-function.js"></script>
+    <script defer src="./camera-menu.js"></script>
+    <script defer src="./pin-input.js"></script>
+    <title>BANKNAME | LOGIN</title>
+</head>
+<body class="bg-gray-100">
+    <!-- logo -->
+    <h1 class="text-3xl text-center mt-5 uppercase">logo</h1>
+    <div class="max-w-sm flex flex-col items-center mx-auto justify-center mt-10 bg-white rounded-lg shadow-md">
+        <form onsubmit="return false" class="m-6">
+            <!-- UUID -->
+            <div class="flex flex-col space-y-1 mt-4">
+                <label class="font-medium text-sm" for="uuid">Ausweis ID</label>
+                <div class="flex justify-center">
+                    <input required id="qr-reader-results"
+                        class="uuid-field px-1 focus:shadow-md focus:outline-none focus:border-blue-600 border-gray-500 border-2 rounded-md"
+                        type="text" name="uuid" value="">
+                    <!-- clickable for qr-code reader to appear -->
+                    <svg id="camera" class="w-6 h-6 ml-2 hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round"
+                            d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+                    </svg>
+                    <svg id="camera-slash" class="hidden w-6 h-6 ml-2 hover:cursor-pointer"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M12 18.75H4.5a2.25 2.25 0 01-2.25-2.25V9m12.841 9.091L16.5 19.5m-1.409-1.409c.407-.407.659-.97.659-1.591v-9a2.25 2.25 0 00-2.25-2.25h-9c-.621 0-1.184.252-1.591.659m12.182 12.182L2.909 5.909M1.5 4.5l1.409 1.409" />
+                    </svg>
+
+                </div>
+                <label id="fill-out-uuid" class="hidden text-red-600 italic size text-xs">Bitte dieses Feld
+                    ausfüllen</label>
+            </div>
+            <!-- qr-code reader helper -->
+            <div>
+                <label id="qr-helper" class=".wrap-text hidden italic text-gray-500 text-xs" for="qr-helper">Um die
+                    Kamera zu aktivieren, "Request Camera Permissions" drücken.</label>
+                <!-- qr-code-reader -->
+                <div class="hidden mt-4" id="qr-reader"></div>
+
+                <!-- PIN -->
+                <div class="flex-col mt-3">
+                    <label class="font-medium text-sm my-auto mr-2 mb-1 mt-1" for="pin">PIN</label>
+                    <!-- tracking doesnt work instead use inline styles with letter-spacing -->
+                    <!-- Input box spacing: 4 input boxes, js that moves the cursor on input -->
+                    <div class="flex flex-row space-x-4 mt-1">
+                        <input required id="pw-1" maxlength="1"
+                            class="w-8 border-2 text-center border-gray-500 rounded-md focus:outline-none focus:border-blue-600 focus:shadow-md"
+                            type="text">
+                        <input required id="pw-2" maxlength="1"
+                            class="w-8 ml-3 border-2 text-center border-gray-500 rounded-md focus:outline-none focus:border-blue-600 focus:shadow-md"
+                            type="text">
+                        <input required id="pw-3" maxlength="1"
+                            class="w-8 ml-3 border-2 text-center border-gray-500 rounded-md focus:outline-none focus:border-blue-600 focus:shadow-md"
+                            type="text">
+                        <input required id="pw-4" maxlength="1"
+                            class="w-8 ml-3 border-2 text-center border-gray-500 rounded-md focus:outline-none focus:border-blue-600 focus:shadow-md"
+                            type="text">
+                    </div>
+                    <label id="fill-out-pin" class="hidden text-red-600 italic size text-xs">Bitte dieses Feld korrekt
+                        ausfüllen</label>
+                </div>
+
+                <!-- SUBMIT -->
+        </form>
+        <div class="flex flex-col items-center">
+            <button id="submit-button"
+                class="bg-blue-600 hover:bg-blue-700 uppercase text-white py-1 px-5 rounded-md font-medium mb-5 focus:outline-none focus:outline-2 focus:outline-gray-600 button-animation">LOGIN</button>
+        </div>
+    </div>
+</body>
+
+</html>

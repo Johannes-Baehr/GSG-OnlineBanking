@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- Include the Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@0.5.7/dist/chartjs-plugin-annotation.min.js"></script>
+
+    <h1>{{ balance }} $</h1>
+    <!-- Create a canvas element where the chart will be rendered -->
+    <div><canvas id="myChart"></canvas></div>
+
+
+    <script>
+        // Parse the data and extract the amount and createdAt values
+        const data = {{ data }}
+        const amountData = data.map(item => item.amount);
+        const createdAtData = data.map(item => item.createdAt);
+
+        // Get the canvas element and its context
+        const canvas = document.getElementById('myChart');
+        const ctx = canvas.getContext('2d');
+
+        // Create the chart using the Chart.js library
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: createdAtData,
+                datasets: [{
+                    label: 'Amount',
+                    data: amountData,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                animation: {
+                    duration: 2000, // animation duration in milliseconds
+                    easing: 'easeInOutQuad' // easing function
+                }
+
+
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+.wrong-input {
+    border-color: red;
+    animation: shake 300ms;
+}
+
+#submit-button {
+    margin-top: 1.5rem;
+}
+
+.wrap-text {
+    white-space: normal;
+}
+
+@keyframes shake {
+    25% {
+        transform: translateX(4px);
+    }
+
+    50% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(4px);
+    }
+}
+
+.button-animation {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.button-animation:hover {
+    animation: button 1s ease-in;
+}
+
+@keyframes button {
+    100% {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+}
