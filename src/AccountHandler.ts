@@ -2,7 +2,6 @@ import { Sequelize, DataTypes, Model } from 'sequelize';
 import bcrypt from 'bcrypt'
 import StatusCodes from './StatusCodes.js'
 import TransactionLog from './TransactionLog.js';
-import { rejects } from 'assert';
 
 const saltRounds = 8
 
@@ -22,6 +21,7 @@ User.init({
   uuid: {
     type: DataTypes.STRING,
     primaryKey: true,
+    allowNull: false
   },
   pin: {
     type: DataTypes.STRING,
@@ -115,7 +115,7 @@ class AccountHandler {
     });
   }
 
-  static async authenticate(uuid: string, pin: string) {
+  static async authenticate(uuid: string, pin: string): Promise<number> {
     return new Promise((resolve, reject) => {
       User.findByPk(uuid).then((user) => {
         if (user !== null) {
@@ -130,11 +130,23 @@ class AccountHandler {
           resolve(StatusCodes.error.authFail);
         }
       }).catch(() => {
-        reject(StatusCodes.error.authFail);
+        resolve(StatusCodes.error.authFail);
       });
     });
   }
+  static async getBalance(uuid: string) {
+    try {
+      const sender = await User.findOne({
+        where: { uuid },
+        attributes: ["balance"],
+      });
 
+      return sender
+
+    } catch {
+      return StatusCodes.error.server
+    }
+  }
 }
 
 export default AccountHandler

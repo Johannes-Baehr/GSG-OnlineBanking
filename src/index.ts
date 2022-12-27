@@ -9,7 +9,6 @@ const port: number = 8080
 
 app.use(bodyParser.json())
 
-
 app.use('/account', account)
 
 app.use(express.static("dist/static")) // TODO: weird things happening and i dont have any idea whats going on with that path
