@@ -3,7 +3,6 @@ import RequestHelper from './RequestHelper.js';
 import StatusCodes from './StatusCodes.js';
 import AccountHandler from './AccountHandler.js';
 import TransactionLog from './TransactionLog.js';
-import fs from 'fs';
 const router = Router();
 router.post('/register', async (req, res) => {
     if (!RequestHelper.hasKeys(['uuid', 'pin'], req.body) || req.body.uuid.length > 36) {
@@ -41,15 +40,8 @@ router.post('/login', async (req, res) => {
             else {
                 const transations = await TransactionLog.getTransactions(req.body.uuid);
                 const chartData = await TransactionLog.processTransactions(transations, req.body.uuid);
-                fs.readFile('/home/john/Repos/GSG-OnlineBanking/dist/templates/dashboard.html', "utf-8", (err, file) => {
-                    if (err) {
-                        res.status(StatusCodes.error.server);
-                        return console.log(err);
-                    }
-                    file = file.replace('{{ balance }}', user.balance.toFixed(2));
-                    file = file.replace('{{ data }}', JSON.stringify(chartData)); // replace yes but no idea how chart.js works lets goooooooooooooooo
-                    res.send(file);
-                });
+                console.log(JSON.stringify(chartData));
+                res.render('dashboard', { balance: user.balance.toFixed(2), data: JSON.stringify(chartData) });
             }
         }
     }
