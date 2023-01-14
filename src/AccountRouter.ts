@@ -10,7 +10,6 @@ const router: Router = Router()
 
 router.post('/register', async (req, res) => {
     if (!RequestHelper.hasKeys(['uuid', 'pin'], req.body) || req.body.uuid.length > 36) { res.status(StatusCodes.error.badRequest).send() } else {
-        console.log('after key check')
         if (!/^[0-9]{4}/.test(req.body.pin)) { return StatusCodes.error.pinFormat }
 
         res.status(await AccountHandler.addUser(req.body.uuid, req.body.pin)).send()
