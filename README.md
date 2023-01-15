@@ -12,7 +12,7 @@ Example: If you want to register a user with the PIN `1234` and the UUID `1a2b3c
 
 `{"PIN": "1234", "UUID": "1a2b3c"}`
 
-### BOTH the PIN and the UUID must be in QUOTES!
+##### BOTH the PIN and the UUID must be in QUOTES!
 
 ## User wants to access their account
 
@@ -26,4 +26,4 @@ If UUID `1a2b3c` wants to send `50$` to UUID `lmao`, he posts:
 
 `{ "fromUUID": 1a2b3c, "toUUID": lmao, "fromPIN": "1234", "amount": 68.778}`
 
-### UUID and amount don't need to be in QUOTES but fromPIN doesdoes
+##### UUID and amount don't need to be in QUOTES but fromPIN does
