@@ -27,3 +27,9 @@ If UUID `1a2b3c` wants to send `50$` to UUID `lmao`, he posts:
 `{ "fromUUID": 1a2b3c, "toUUID": lmao, "fromPIN": "1234", "amount": 68.778}`
 
 #### UUID and amount don't need to be in QUOTES but fromPIN does
+
+## TODO'S
+
+- [ ] Add tests to literally everything 
+- [ ] UI to transfer money and register 
+- [ ] Style Landing Page
