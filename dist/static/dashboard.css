@@ -1,0 +1,21 @@
+body {
+    background-color: rgb(178, 178, 178);
+}
+
+.wrapper {
+    display: flex;  
+    flex-direction: column;
+    gap: 10%;
+    margin: 5rem;
+}
+
+.item {
+    background-color: white;
+    border-radius: 25px;
+    padding: 1rem;
+}
+
+#money {
+    text-align: center;
+    margin-bottom: 1rem;
+}

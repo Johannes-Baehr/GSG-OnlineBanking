@@ -9,7 +9,6 @@ router.post('/register', async (req, res) => {
         res.status(StatusCodes.error.badRequest).send();
     }
     else {
-        console.log('after key check');
         if (!/^[0-9]{4}/.test(req.body.pin)) {
             return StatusCodes.error.pinFormat;
         }
