@@ -33,3 +33,4 @@ If UUID `1a2b3c` wants to send `50$` to UUID `lmao`, he posts:
 - [ ] Add tests to literally everything 
 - [ ] UI to transfer money and register 
 - [ ] Style Landing Page
+- [ ] Cookie auth for the dashboard 
