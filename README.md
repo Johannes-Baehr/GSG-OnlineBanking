@@ -34,3 +34,7 @@ If UUID `1a2b3c` wants to send `50$` to UUID `lmao`, he posts:
 - [ ] UI to transfer money and register 
 - [ ] Style Landing Page
 - [ ] Cookie auth for the dashboard 
+
+## Contributing
+
+This is a school project, so I will only accept pull requests from people I know. But feel free to fork this repo and work on it yourself.
