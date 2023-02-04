@@ -49,16 +49,29 @@ sequelize.sync({ force: false })
 class AccountHandler {
 
   static async addUser(uuid: string, pin: string): Promise<number> {
+
     return new Promise((resolve, reject) => {
+
       bcrypt.hash(pin, saltRounds, async (err, hash) => {
+
         if (err === undefined) {
+
           try {
             await User.create({ uuid, pin: hash })
             resolve(StatusCodes.success.created)
+
           } catch (e: any) {
-            if (e.name === 'SequelizeUniqueConstraintError') { resolve(StatusCodes.error.conflict) }
-            else { resolve(StatusCodes.error.server) }
+
+            if (e.name === 'SequelizeUniqueConstraintError') { 
+              resolve(StatusCodes.error.conflict) 
+            }
+            
+            else { 
+              resolve(StatusCodes.error.server) 
+            }
+
           }
+
         } else {
           resolve(StatusCodes.error.server)
         }

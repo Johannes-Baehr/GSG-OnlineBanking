@@ -9,7 +9,7 @@ const port: number = 8080
 
 app.use(bodyParser.json())
 app.set('view engine', 'ejs')
-app.set('views', '/home/john/Repos/GSG-OnlineBanking/dist/views')
+app.set('views', 'dist/views')
 
 app.use('/account', account)
 

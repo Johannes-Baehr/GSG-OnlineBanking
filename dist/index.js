@@ -5,7 +5,7 @@ const app = express();
 const port = 8080;
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
-app.set('views', '/home/john/Repos/GSG-OnlineBanking/dist/views');
+app.set('views', 'dist/views');
 app.use('/account', account);
 app.use(express.static("dist/static")); // TODO: weird things happening and i dont have any idea whats going on with that path
 app.get('/rendertest', (req, res) => {
